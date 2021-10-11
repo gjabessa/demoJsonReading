@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -50,7 +51,7 @@ class DemoApplicationTests {
 	void testFailurePath() throws Exception {
 
 		when(dc.fetchFileMap()).thenThrow(new IOException());
-		mockMvc.perform(get("/")).andExpect(status().is(404)).andReturn().getResponse().getContentAsString();
+		Assert.assertEquals(null, dc.returnFile());
 
 
 	}

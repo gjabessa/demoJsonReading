@@ -14,14 +14,21 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/")
 public class demoController {
     ObjectMapper om = new ObjectMapper();
     @GetMapping
-    public CustomObject returnFile() throws IOException {
-        CustomObject co = new CustomObject(fetchFileMap(),"success");
+    public CustomObject returnFile() {
+        CustomObject co = null;
+        try {
+            co = new CustomObject(fetchFileMap(),"success");
+        } catch (IOException e) {
+            System.out.println("error");
+            throw new NoSuchElementException();
+        }
 
         return co;
     }
